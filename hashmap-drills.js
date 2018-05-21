@@ -83,22 +83,58 @@ class HashMap {
 HashMap.MAX_LOAD_RATIO = 0.9;
 HashMap.SIZE_RATIO = 3;
 
+const lotrChars = [{ Hobbit: 'Bilbo' }, { Hobbit: 'Frodo' }, { Wizard: 'Gandolf' }, { Human: 'Aragon' }, { Elf: 'Legolas' }, { Maiar: 'The Necromancer' }, { Maiar: 'Sauron' }, { RingBearer: 'Gollum' }, { LadyOfLight: 'Galadriel' }, { HalfElven: 'Arwen' }, { Ent: 'Treebeard' }];
 
-const arr = [5, 8, 6, 1];
+function main() {
+  let lotr = new HashMap();
+  
+  lotr.set('Hobbit', ['Bilbo', 'Frodo']);
+  //lotr.set('Hobbit', 'Frodo');
+  lotr.set('Wizard', 'Gandolf');
+  // lort.set()
+  // lotr.set({ Hobbit: 'Bilbo , Frodo' ,  Wizard: 'Gandolf' ,  Human: 'Aragon' ,  Elf: 'Legolas' ,  Maiar: 'The Necromancer , Sauron' ,  RingBearer: 'Gollum' ,  LadyOfLight: 'Galadriel' ,  HalfElven: 'Arwen',  Ent: 'Treebeard' });
+  console.log(JSON.stringify(lotr));
+  console.log(lotr.get('Hobbit'));
+}
+main();
 
-function greatestDiff(arr) {
-  let max = arr[0];
-  let min = arr[0];
-  for (let index = 0; index < arr.length; index++) { // 1
-    if (arr[index] > max) {
-      max = arr[index];
+function isPalindrome(str) {
+  const hashmap = new HashMap();
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      continue;
     }
-    else if (arr[index] < min) {
-      min  = arr[index];
-    }   
+    hashmap.set(str[i], 0);
   }
-  return max - min; 
-  // BigO of O(n) computation time of n to the input size. In this case it is 4 since that is the size of the array. 
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      continue;
+    }
+    let valueToInc = hashmap.get(str[i]);
+    hashmap.set(str[i], valueToInc + 1);
+  }
+  let numberOfOdd = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === ' ') {
+      continue;
+    }
+    let value = hashmap.get(str[i]);
+    if (value % 2 !== 0) {
+      numberOfOdd++;
+    }
+  }
+  if (numberOfOdd > 1) {
+    return false;
+  } else {
+    return true;
+  }
+  // return hashmap;
 }
 
-console.log(greatestDiff(arr));
+console.log(JSON.stringify(isPalindrome('Thomas')));
+
+function anagramGrp(array) {
+
+
+  
+}
