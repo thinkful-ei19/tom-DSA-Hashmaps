@@ -78,6 +78,12 @@ class HashMap {
     }
     return hash >>> 0;
   }
+
+  orginalHashVal(key) {
+    const hash = HashMap._hashString(key);
+    return hash % this._capacity;
+  }
+
 }
 
 HashMap.MAX_LOAD_RATIO = 0.9;
@@ -133,8 +139,29 @@ function isPalindrome(str) {
 
 console.log(JSON.stringify(isPalindrome('Thomas')));
 
+
 function anagramGrp(array) {
-
-
-  
+  const hashmap = new HashMap();
+  for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+    hashmap.set(array[i], hashmap.orginalHashVal(array[i]));
+  }
+  let currentValue = hashmap._slots[0].value;
+  let result = [];
+  let currentArr = [];
+  for (let i = 0; i < hashmap._slots.length; i++) {
+    if (hashmap._slots[i]) {
+      if (currentValue === hashmap._slots[i].value) {
+        currentArr.push(hashmap._slots[i].key);
+      } else {
+        result.push(currentArr);
+        currentArr = [];
+        currentValue = hashmap._slots[i].value;
+        currentArr.push(hashmap._slots[i].key);
+      }
+    }
+  }
+  result.push(currentArr);
+  return result;
 }
+console.log(anagramGrp(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
